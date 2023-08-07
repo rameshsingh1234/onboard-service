@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+
 @app.route('/v1/FIU', methods=['POST'])
 def create_fiu():
     # Extract request headers and body
@@ -20,13 +21,14 @@ def create_fiu():
 
     # Check if the FIU already exists (dummy check without actual data storage)
     fiu_id = data['entityinfo']['id']
-    if len(fiu_id) ==0:
+    if len(fiu_id) == 0:
         return jsonify({"responseCode": 409, "responseText": "FIU id already exists"}), 409
 
     # You can add further validation or processing logic here as needed
 
     # Return success response
     return jsonify({"responseCode": 201, "responseText": "FIU created successfully"}), 201
+
 
 @app.route('/v1/FIU', methods=['PUT'])
 def update_fiu():
@@ -59,6 +61,7 @@ def update_fiu():
     else:
         return jsonify({"responseCode": 404, "responseText": "FIU is not found."}), 404
 
+
 @app.route('/v1/FIU/<string:entityId>', methods=['PATCH'])
 def update_fiu_by_id(entityId):
     # Extract request headers and body
@@ -88,7 +91,6 @@ def update_fiu_by_id(entityId):
 
     # Return success response
     return jsonify({"responseCode": 200, "responseText": "FIU updated successfully"}), 200
-
 
 
 if __name__ == '__main__':

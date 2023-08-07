@@ -1,12 +1,10 @@
 # To create an entity with status code 200
 
-# Import the necessary libraries
-
 import requests
 from src.unittest.python.utils.read_file import read_headers, read_entities
 
 
-def test_create_fiu():
+def test_fiu_valid_schema():
     """
     Send a POST request with the valid JSON data.
     Validate the response status code and message

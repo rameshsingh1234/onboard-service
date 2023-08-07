@@ -1,0 +1,4 @@
+{
+  "central_registry_url": "http://localhost:9595",
+  "fiu_schema_filename": "fiu-schema.json"
+}

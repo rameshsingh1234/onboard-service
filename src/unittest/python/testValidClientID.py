@@ -1,5 +1,12 @@
+import pytest
 import requests
 from src.unittest.python.utils.read_file import read_headers, read_entities
+from utils.read_file import read_headers
+
+
+@pytest.fixture
+def test_parameters():
+    return read_headers
 
 
 def test_post_client_api(test_parameters):
@@ -29,4 +36,4 @@ def test_post_client_api(test_parameters):
 
     response = requests.post(api_endpoint, json=request_body, headers=headers)
 
-    assert response.status_code == 200, f"Expected status code 200, but got {response.status_code}"
+    assert response.status_code == 201, f"Expected status code 201, but got {response.status_code}"
