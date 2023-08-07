@@ -1,0 +1,178 @@
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$id": "https://json-schema.org/draft/2019-09/schema",
+	"type": "object",
+	"properties": {
+		"ver": {
+			"type": "string",
+			"minLength": 1
+		},
+		"timestamp": {
+			"type": "string",
+			"minLength": 1
+		},
+		"txnid": {
+			"type": "string",
+			"minLength": 1
+		},
+		"requester": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1
+				},
+				"id": {
+					"type": "string",
+					"minLength": 1
+				}
+			},
+			"required": [
+				"name",
+				"id"
+			]
+		},
+		"entityinfo": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1
+				},
+				"id": {
+					"type": "string"
+				},
+				"code": {
+					"type": "string",
+					"minLength": 1
+				},
+				"entityhandle": {
+					"type": "string"
+				},
+				"baseurl": {
+					"type": "string",
+					"minLength": 1
+				},
+				"certificate": {
+					"type": "object",
+					"properties": {
+						"alg": {
+							"type": "string",
+							"minLength": 1
+						},
+						"e": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kid": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kty": {
+							"type": "string",
+							"minLength": 1
+						},
+						"n": {
+							"type": "string",
+							"minLength": 1
+						},
+						"use": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": [
+						"alg",
+						"e",
+						"kid",
+						"kty",
+						"n",
+						"use"
+					]
+				},
+				"inboundports": {
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"items": {
+						"type": [
+							"number",
+							"string"
+						]
+					}
+				},
+				"outboundports": {
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"items": {
+						"type": [
+							"number",
+							"string"
+						]
+					}
+				},
+				"ips": {
+					"type": ["array", "null"],
+					"uniqueItems": true,
+					"items": {
+						"type": "string"
+					}
+				},
+				"credentialsPk": {
+					"type": [
+						"object",
+						"null"
+					],
+					"properties": {
+						"alg": {
+							"type": "string",
+							"minLength": 1
+						},
+						"e": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kid": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kty": {
+							"type": "string",
+							"minLength": 1
+						},
+						"n": {
+							"type": "string",
+							"minLength": 1
+						},
+						"use": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": [
+						"alg",
+						"e",
+						"kid",
+						"kty",
+						"n",
+						"use"
+					]
+				}
+			},
+			"required": [
+				"name",
+				"id",
+				"code",
+				"baseurl",
+				"certificate",
+				"entityhandle"
+			]
+		}
+	},
+	"required": [
+		"ver",
+		"timestamp",
+		"txnid",
+		"requester",
+		"entityinfo"
+	]
+}

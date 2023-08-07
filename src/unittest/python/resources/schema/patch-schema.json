@@ -1,0 +1,152 @@
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$id": "https://json-schema.org/draft/2019-09/schema",
+	"type": "object",
+	"properties": {
+		"additionalProperties": false,
+		"entityinfo": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1
+				},
+				"entityhandle": {
+					"type": "string"
+				},
+				"Identifiers": {
+					"type": "array",
+					"contains": {
+						"type": "object",
+						"properties": {
+							"category": {
+								"type": "string",
+								"minLength": 1
+							},
+							"type": {
+								"type": "string",
+								"minLength": 1
+							}
+						}
+					}
+				},
+				"baseurl": {
+					"type": "string",
+					"minLength": 1
+				},
+				"webviewurl": {
+					"type": "string",
+					"minLength": 1
+				},
+				"fitypes": {
+					"type": "array",
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"certificate": {
+					"type": "object",
+					"properties": {
+						"alg": {
+							"type": "string",
+							"minLength": 1
+						},
+						"e": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kid": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kty": {
+							"type": "string",
+							"minLength": 1
+						},
+						"n": {
+							"type": "string",
+							"minLength": 1
+						},
+						"use": {
+							"type": "string",
+							"minLength": 1
+						}
+					}
+				},
+				"gsp": {
+					"type": "object",
+					"properties": {
+						"id": {
+							"type": "string",
+							"minLength": 1
+						},
+						"name": {
+							"type": "string",
+							"minLength": 1
+						},
+						"ip": {
+							"type": "string",
+							"minLength": 1
+						},
+						"url": {
+							"type": "string",
+							"minLength": 1
+						}
+					}
+				},
+				"inboundports": {
+					"type": "array",
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"outboundports": {
+					"type": "array",
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"ips": {
+					"type": "array",
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"credentialsPk": {
+					"type": "object",
+					"properties": {
+						"alg": {
+							"type": "string",
+							"minLength": 1
+						},
+						"e": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kid": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kty": {
+							"type": "string",
+							"minLength": 1
+						},
+						"n": {
+							"type": "string",
+							"minLength": 1
+						},
+						"use": {
+							"type": "string",
+							"minLength": 1
+						}
+					}
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}
