@@ -27,9 +27,8 @@ def read_schemas():
     """Function to read file"""
     resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources/schema")
     file = os.path.join(resource_dir, "fiu-schema.json")
-    # print("data file path:", entities_file)
     return read_data(file)
 
 
-read_headers = read_headers()
-read_entities = read_entities()
+# read_headers = read_headers()
+# read_entities = read_entities()

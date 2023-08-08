@@ -1,4 +1,7 @@
 {
   "central_registry_url": "http://localhost:9595",
-  "fiu_schema_filename": "fiu-schema.json"
+  "fiu_schema_filename": "fiu-schema.json",
+  "url": "http://localhost:5000/v1",
+   "keycloak_base_url": "http://localhost:8080",
+  "realm": "sahamati"
 }

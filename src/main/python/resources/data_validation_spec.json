@@ -1,0 +1,12 @@
+{
+    "comparison": [
+        {
+          "type": "equals",
+         "keys": [
+
+             ["requester.name","entityinfo.name"],
+             ["requester.id","entityinfo.id"]
+         ]
+         }
+    ]
+}

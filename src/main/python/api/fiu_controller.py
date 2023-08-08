@@ -1,16 +1,20 @@
 import jsonschema
 from flask import Flask, request, jsonify
-from src.main.python.Keycloak import Keycloak
 import logging
-
 from src.unittest.python.utils import read_config_file
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file
 from src.main.python import CentralRegistry as cr
+from src.main.python import json_data_validator as jdv
+from src.main.python import Keycloak
 
-logging.basicConfig(level=logging.DEBUG)
-
+logging.basicConfig(level=logging.DEBUG)  # filename='fiu-app.log', filemode='w',
 app = Flask(__name__)
+
+
+@app.route('/v2/FIU', methods=['POST'])
+def v2_fiu():
+    return jsonify({"api-version": "v2"})
 
 
 @app.route('/v1/FIU', methods=['POST'])
@@ -22,12 +26,12 @@ def create_fiu():
     # Validate required headers
     required_headers = ['clientId', 'clientSecret', 'userType']
     if not all(header in headers for header in required_headers):
-        return jsonify({"responseCode": 401, "responseText": "Unauthorized"}), 401
+        return jsonify({"responseCode": 400, "responseText": f"Required headers are missing, Required headers: {required_headers}"}), 401
 
-    """ Validate User"""
+    # """ Read configuration"""
     config = read_config_file.read_config('/home/krishna/Tibil/sahamati/onboard-service/src/main/python/resources'
                                           '/application.json')
-    #
+
     # keycloak_base_url = config.get('keycloak_base_url')
     #
     #
@@ -51,11 +55,12 @@ def create_fiu():
 
     required_properties = ['ver', 'timestamp', 'txnid', 'requester', 'entityinfo']
     if not all(prop in data for prop in required_properties):
-        return jsonify({"responseCode": 400, "responseText": "Invalid path specified"}), 400
+        return jsonify({"responseCode": 400, "responseText": f"required property is missing, required properties {required_properties}"}), 400
 
-    # Validate required properties in the request body
-    validator = SchemaValidator(schema=read_file.read_schemas())
     try:
+        # Validate schema in the request body
+        print("inside json schema validation")
+        validator = SchemaValidator(schema=read_file.read_schemas())
         validator.validate_or_raise(data)
         app.logger.info("JSON is valid according to the schema.")
 
@@ -64,20 +69,35 @@ def create_fiu():
         app.logger.error(e)
         return jsonify({"responseCode": 400, "responseText": "JSON is not valid according to the schema."}), 400
 
-    # Check if the FIU already exists by calling cr get entity api
-    fiu_id = data['entityinfo']['id']
-    res = cr.CentralRegistry(config, 'FIU').get_entity_by_id(fiu_id)
-    print("fiu_get_entity_by_id_res:::", res.text)
+    # validate the requester.id & name with entityinfo.id&name if self onboarding
+    if headers['userType'] != 'TSP':
 
-    if res.status_code == 200:
-        return jsonify({"responseCode": 409, "responseText": "FIU id already exists"}), 409
+        validation_res = jdv.JsonDataValidator.relational_validator(data)
+        if validation_res:
+
+            # create access token from token service
+            keycloak_instance = Keycloak.Keycloak(config)
+            access_token = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
+
+            # Add the fiu in CR
+            res = cr.CentralRegistry(config, 'FIU').add_entity(data, access_token)
+            if res.status_code == 200:
+                return jsonify({"responseText": res.json()}), 201
+            else:
+                return jsonify({"responseText": res.json()}), res.status_code
+        else:
+            return jsonify({"responseCode": 400, "responseText": "JSON data is not valid."}), 400
+    #
     else:
-        # Get access token from request
-        access_token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ3N2RmZkhZS0JvUzJJUTFhU0t1YjZTcUtRUUI4d2NTWkFzTEpfN19IWXg0In0.eyJleHAiOjE2OTE0NDMxMDgsImlhdCI6MTY5MTQwNzEwOCwianRpIjoiNjNkOTIyZDQtYzVjYi00NTM2LWJjYzItN2E2MGE5NzBhMTJlIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9zYWhhbWF0aSIsImF1ZCI6WyJyZWFsbS1tYW5hZ2VtZW50IiwiYWNjb3VudCJdLCJzdWIiOiIxYjk1ODdjOC1kY2ZhLTQxZjAtYmZlYy1mMDUxNDcwMTRjMDkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJzYWhhbWF0aS1hZG1pbiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtc2FoYW1hdGkiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsic2FoYW1hdGktYWRtaW4iOnsicm9sZXMiOlsidW1hX3Byb3RlY3Rpb24iXX0sInJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsibWFuYWdlLXVzZXJzIl19LCJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudEhvc3QiOiIxNzIuMTcuMC4xIiwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LXNhaGFtYXRpLWFkbWluIiwiY2xpZW50QWRkcmVzcyI6IjE3Mi4xNy4wLjEiLCJjbGllbnRfaWQiOiJzYWhhbWF0aS1hZG1pbiJ9.Nbz4L8BxhYE279I3lMS9EdsBZaNFTaMTc7tt2sBQWEFq1QUU2gq2biRJMQC3vrAP3cudpbGEUn2-uH07a4wiAuoOi_UJI6YiXkJ_QO5Qb5eAe6o4MCH0NQZJjJL_uYr5woByb1Ry52BVwPFXYAUPVRm27xPs0B79uRXMuBZiQ6XGwQYRQNvjXgz3YKLPp96mopzit35nWDT-3oIo8nGZuE4gCtKVesLAI5bHK0j4FI68KMol7RD4sf8kPAQl4g8H0go9RrDoghmBte7sNMKU8NXvgDx8mk53zW5sFt8iGunViP2OZ0szapviXmh1V5mcsGUTmaz-ej12VTmfmZ4M8g'
+        # create access token from token service
+
+        keycloak_instance = Keycloak.Keycloak(config)
+        access_token = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
+
         # Add the fiu in CR
-        res = cr.CentralRegistry(config, 'FIU').add_entity(data)
-        if res.status_code == 201:
-            return jsonify({"responseText": res.json()}), res.status_code
+        res = cr.CentralRegistry(config, 'FIU').add_entity(data, access_token)
+        if res.status_code == 200:
+            return jsonify({"responseText": res.json()}), 201
         else:
             return jsonify({"responseText": res.json()}), res.status_code
 
@@ -145,7 +165,6 @@ def update_fiu_by_id(entityId):
 def delete_fiu_by_id(entityId):
     # Extract request headers and body
     headers = request.headers
-    data = request.get_json()
 
     # Validate required headers
     required_headers = ['clientId', 'clientSecret', 'userType']
@@ -164,15 +183,15 @@ def delete_fiu_by_id(entityId):
     return jsonify({"responseCode": 200, "responseText": "FIU deleted successfully"}), 200
 
 
-@app.route('/')
-def main():
-    # showing different logging levels
-    app.logger.debug("debug log info")
-    app.logger.info("Info log information")
-    app.logger.warning("Warning log info")
-    app.logger.error("Error log info")
-    app.logger.critical("Critical log info")
-    return "testing logging levels."
+# @app.route('/')
+# def main():
+#     # showing different logging levels
+#     app.logger.debug("debug log info")
+#     app.logger.info("Info log information")
+#     app.logger.warning("Warning log info")
+#     app.logger.error("Error log info")
+#     app.logger.critical("Critical log info")
+#     return "testing logging levels."
 
 
 if __name__ == '__main__':

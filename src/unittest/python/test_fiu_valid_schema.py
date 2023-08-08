@@ -1,24 +1,21 @@
 # To create an entity with status code 200
-
+import pytest
 import requests
 from src.unittest.python.utils.read_file import read_headers, read_entities
+from src.unittest.python.resources import fiu_test_data
 
 
-def test_fiu_valid_schema():
+@pytest.mark.parametrize(
+    "url, client_id, client_secret, user_type, entity_type, request_body, expected_status",
+    fiu_test_data.fiu_valid_schema)
+def test_fiu_valid_schema(url, client_id, client_secret, user_type, entity_type, request_body, expected_status):
     """
     Send a POST request with the valid JSON data.
     Validate the response status code and message
     :return:
     """
 
-    url = read_headers.get("url")
-    version = read_headers.get("version")
-    entity_type = read_headers.get("entityType")
-    client_id = read_headers.get("clientID")
-    client_secret = read_headers.get("clientSecret")
-    user_type = read_headers.get("userType")
-
-    api_endpoint = f"{url}/{version}/{entity_type}"
+    api_endpoint = f"{url}/{entity_type}"
     headers = {
         "clientID": client_id,
         "clientSecret": client_secret,
@@ -28,5 +25,21 @@ def test_fiu_valid_schema():
     request_body = read_entities
 
     response = requests.post(api_endpoint, json=request_body, headers=headers)
+    print(expected_status)
 
-    assert response.status_code == 201, f"Expected status code 200, but got {response.status_code}"
+    assert response.status_code == expected_status, f"Expected status code {expected_status}, but got {response.status_code}"
+
+
+def test_api_request(url, version, entity_type, client_id, client_secret, user_type, expected_status):
+    api_endpoint = f"{url}/{version}/{entity_type}"
+    headers = {
+        "clientID": client_id,
+        "clientSecret": client_secret,
+        "userType": user_type
+    }
+
+    request_body = {"data": "test"}
+
+    response = requests.post(api_endpoint, json=request_body, headers=headers)
+
+    assert response.status_code == expected_status, f"Expected status code {expected_status}, but got {response.status_code}"

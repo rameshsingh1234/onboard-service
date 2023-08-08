@@ -42,6 +42,7 @@ class Keycloak:
           """
 
         url = f"{self.conf.get('keycloak_base_url')}/realms/{self.conf.get('realm')}/protocol/openid-connect/token"
+        print(url)
         headers = {
             "Content-Type": "application/x-www-form-urlencoded"
         }
@@ -59,7 +60,6 @@ class Keycloak:
             print("Failed to generate token: {}".format(response.status_code))
             return None
 
-
     def create_client(self):
         """
         call the post method create client keycloak api
@@ -68,6 +68,13 @@ class Keycloak:
         request body:
         :return:
         """
+        # create access-token
+        # call /admin/realms/sahamati/clients"
+        # validate 201 response code
+        # call admin/realms/sahamati/clients
+        # fetch the client_id and secret and return
+
+
 
     def get_public_key(self):
         """Gets the public key from Keycloak.
@@ -101,11 +108,11 @@ class Keycloak:
 
         # Get the public key from Keycloak.
         public_key = self.get_public_key()
-        print("public_key:::",public_key)
+        print("public_key:::", public_key)
 
         # Decode the token.
         claims = jwt.decode(token, public_key, algorithms=["RS256"])
-        print("Token:::::",token)
+        print("Token:::::", token)
         # Use pycryptodome to decode the token.
         # claims = pycryptodome.jwt.decode(token, public_key, algorithms=["RS256"], verify_exp=True, verify_aud=True)
 
