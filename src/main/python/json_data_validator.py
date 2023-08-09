@@ -66,6 +66,7 @@ class JsonDataValidator:
                     res = JsonDataValidator.compare_values(data[(keys[0].split('.')[0])][(keys[0].split('.')[1])],
                                                            data[(keys[1].split('.')[0])][(keys[1].split('.')[1])])
                     count += 1
+                    print(res)
                     if res:
                         continue
                     else:

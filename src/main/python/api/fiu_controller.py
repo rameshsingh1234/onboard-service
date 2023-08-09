@@ -26,7 +26,8 @@ def create_fiu():
     # Validate required headers
     required_headers = ['clientId', 'clientSecret', 'userType']
     if not all(header in headers for header in required_headers):
-        return jsonify({"responseCode": 400, "responseText": f"Required headers are missing, Required headers: {required_headers}"}), 401
+        return jsonify({"responseCode": 400,
+                        "responseText": f"Required headers are missing, Required headers: {required_headers}"}), 401
 
     # """ Read configuration"""
     config = read_config_file.read_config('/home/krishna/Tibil/sahamati/onboard-service/src/main/python/resources'
@@ -55,7 +56,8 @@ def create_fiu():
 
     required_properties = ['ver', 'timestamp', 'txnid', 'requester', 'entityinfo']
     if not all(prop in data for prop in required_properties):
-        return jsonify({"responseCode": 400, "responseText": f"required property is missing, required properties {required_properties}"}), 400
+        return jsonify({"responseCode": 400,
+                        "responseText": f"required property is missing, required properties {required_properties}"}), 400
 
     try:
         # Validate schema in the request body
@@ -82,7 +84,9 @@ def create_fiu():
             # Add the fiu in CR
             res = cr.CentralRegistry(config, 'FIU').add_entity(data, access_token)
             if res.status_code == 200:
-                return jsonify({"responseText": res.json()}), 201
+                client_response = keycloak_instance.create_client(config, access_token, data['entityinfo']['id'])
+                if not client_response:
+                    return jsonify({"responseText": client_response}), 201
             else:
                 return jsonify({"responseText": res.json()}), res.status_code
         else:
@@ -183,15 +187,6 @@ def delete_fiu_by_id(entityId):
     return jsonify({"responseCode": 200, "responseText": "FIU deleted successfully"}), 200
 
 
-# @app.route('/')
-# def main():
-#     # showing different logging levels
-#     app.logger.debug("debug log info")
-#     app.logger.info("Info log information")
-#     app.logger.warning("Warning log info")
-#     app.logger.error("Error log info")
-#     app.logger.critical("Critical log info")
-#     return "testing logging levels."
 
 
 if __name__ == '__main__':

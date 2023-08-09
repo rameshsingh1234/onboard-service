@@ -1,14 +1,10 @@
 # import necessary libraries
 import time
-
 import jwt as jwt
-# import pycryptodome.jwt.algorithms
-
 import requests
 import json
 
 
-# VKWZNwLdnfC6Izh2vdt0UgIlEkPzRynl
 class Keycloak:
     def __init__(self, conf):
         self.conf = conf
@@ -60,7 +56,7 @@ class Keycloak:
             print("Failed to generate token: {}".format(response.status_code))
             return None
 
-    def create_client(self):
+    def create_client(self, conf, access_token, entity_id):
         """
         call the post method create client keycloak api
         header: application/json
@@ -68,13 +64,46 @@ class Keycloak:
         request body:
         :return:
         """
-        # create access-token
+
         # call /admin/realms/sahamati/clients"
+
+        url = f"{conf.get('keycloak_base_url')}/admin/realms/{conf.get('realm')}/clients"
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {access_token}"}
+
+        payload = json.dumps({
+            "clientId": entity_id,
+            "protocol": "openid-connect",
+            "publicClient": False,
+            "enabled": True
+        })
+
+        response = requests.request("POST", url, headers=headers, data=payload)
         # validate 201 response code
-        # call admin/realms/sahamati/clients
-        # fetch the client_id and secret and return
+        if response.status_code == 201:
+            # call admin/realms/sahamati/clients
+            # admin/realms/sahamati/clients
+            url = f"{conf.get('keycloak_base_url')}/admin/realms/{conf.get('realm')}/clients"
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {access_token}"}
+            response = requests.request("GET", url, headers=headers, data=payload)
 
-
+            if response.status_code == 200:
+                for clients in response.json():
+                    if clients.get('clientId') == entity_id:
+                        return {"clientId": clients.get('clientId'),
+                                "secret": clients.get('secret')}
+                    else:
+                        return False
+            else:
+                # fail to get clients from keycloak
+                return False
+        else:
+            # fail to create client in keycloak
+            return False
+            # fetch the client_id and secret and return
 
     def get_public_key(self):
         """Gets the public key from Keycloak.
