@@ -27,16 +27,17 @@ def create_fiu():
     required_headers = ['clientId', 'clientSecret', 'userType']
     if not all(header in headers for header in required_headers):
         return jsonify({"responseCode": 400,
-                        "responseText": f"Required headers are missing, Required headers: {required_headers}"}), 401
+                        "responseText": f"Required headers are missing, Required headers: {required_headers}"}), 400
 
-    """ Read configuration"""
-    config = read_config_file.read_config('/home/krishna/Tibil/sahamati/onboard-service/src/main/python/resources'
-                                          '/application.json')
-
+    # Validate required properties in the request body
     required_properties = ['ver', 'timestamp', 'txnid', 'requester', 'entityinfo']
     if not all(prop in data for prop in required_properties):
         return jsonify({"responseCode": 400,
-                        "responseText": f"required property is missing, required properties {required_properties}"}), 400
+                        "responseText": f"Required properties are missing, Required properties: {required_properties}"}), 400
+
+    config = read_config_file.read_config('/home/krishna/Tibil/sahamati/onboard-service/src/main/python/resources/application.json')
+
+
 
     try:
         # Validate schema in the request body
@@ -47,7 +48,7 @@ def create_fiu():
     except jsonschema.exceptions.ValidationError as e:
         app.logger.error("JSON is not valid according to the schema.")
         app.logger.error(e)
-        return jsonify({"responseCode": 400, "responseText": "JSON is not valid according to the schema."}), 400
+        return jsonify({"responseCode": 422, "responseText": "JSON is not valid according to the schema."}), 422
 
     # validate the requester.id & name with entityinfo.id&name if self onboarding
     if headers['userType'] != 'TSP':
@@ -62,7 +63,7 @@ def create_fiu():
             # Add the fiu in CR
             res = cr.CentralRegistry(config, 'FIU').add_entity(data, access_token)
             if res.status_code == 200:
-                client_response = keycloak_instance.create_client(config, access_token, data['entityinfo']['id'])
+                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
 
