@@ -52,11 +52,8 @@ class JsonDataValidator:
             '/home/krishna/Tibil/sahamati/onboard-service/src/main/python/resources/data_validation_spec.json')
         for i in validation_spec['comparison']:
             if i['type'] == "equals":
-                requester_name = ''
-                requester_id = ''
-                entity_name = ''
-                entity_id = ''
                 count = 1
+                validation_result =[]
                 for keys in i['keys']:
                     print(keys)
                     print(count)
@@ -65,12 +62,13 @@ class JsonDataValidator:
                     print(requester_name, entity_name)
                     res = JsonDataValidator.compare_values(data[(keys[0].split('.')[0])][(keys[0].split('.')[1])],
                                                            data[(keys[1].split('.')[0])][(keys[1].split('.')[1])])
+                    validation_result.append(res)
                     count += 1
                     print(res)
-                    if res:
-                        continue
-                    else:
-                        return False
+                if all(validation_result):
+                    return True
+                else:
+                    return False
 
     @staticmethod
     def compare_values(*values):

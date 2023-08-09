@@ -80,6 +80,7 @@ class Keycloak:
         })
 
         response = requests.request("POST", url, headers=headers, data=payload)
+        print("client creation response::", response.text)
         # validate 201 response code
         if response.status_code == 201:
             # call admin/realms/sahamati/clients
@@ -89,14 +90,18 @@ class Keycloak:
                 "Content-Type": "application/json",
                 "Authorization": f"Bearer {access_token}"}
             response = requests.request("GET", url, headers=headers, data=payload)
+            print("client GET response code::", response.status_code)
+            print("client GET response::", response.text)
 
             if response.status_code == 200:
                 for clients in response.json():
-                    if clients.get('clientId') == entity_id:
+                    # clients = response.json()
+                    if "clientId" in clients and clients["clientId"] == entity_id:
+                        # print("inside  client match::", {"clientId": clients.get('clientId'),
+                        #                                  "secret": clients.get('secret')})
                         return {"clientId": clients.get('clientId'),
                                 "secret": clients.get('secret')}
-                    else:
-                        return False
+                return False
             else:
                 # fail to get clients from keycloak
                 return False
