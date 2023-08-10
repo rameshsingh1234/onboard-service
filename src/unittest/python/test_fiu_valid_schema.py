@@ -1,4 +1,3 @@
-# To create an entity with status code 200
 import pytest
 import requests
 from src.unittest.python.resources import fiu_test_data
