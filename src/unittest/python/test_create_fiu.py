@@ -1,5 +1,3 @@
-# To create an entity with status code 200
-
 import pytest
 import requests
 from src.unittest.python.resources import fiu_test_data
@@ -8,7 +6,7 @@ from src.unittest.python.resources import fiu_test_data
 @pytest.mark.parametrize(
     "url, client_id, client_secret, user_type, entity_type, request_body, expected_status",
     fiu_test_data.fiu_create_entity)
-def test_fiu_valid_schema(url, client_id, client_secret, user_type, entity_type, request_body, expected_status):
+def test_create_fiu(url, client_id, client_secret, user_type, entity_type, request_body, expected_status):
     """
     Send a POST request with the valid JSON data.
     Validate the response status code and message

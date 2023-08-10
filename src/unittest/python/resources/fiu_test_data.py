@@ -1,4 +1,3 @@
-# test_data.py
 from src.unittest.python.utils import read_config_file
 
 """ Read application config file"""
@@ -59,7 +58,7 @@ fiu_valid_schema = [
 
 ]
 
-test_entity_api_request_schema = [
+fiu_entity_api_request_schema = [
     (
         f"{conf.get('url')}",
         "sahamati-admin",

@@ -6,7 +6,7 @@ from src.unittest.python.resources import fiu_test_data
 @pytest.mark.parametrize(
     "url, client_id, client_secret, user_type, entity_type, request_body, expected_status",
     fiu_test_data.fiu_create_entity_exist_schema)
-def test_fiu_exist(url, client_id, client_secret, user_type, entity_type, request_body, expected_status):
+def test_create_fiu_exist(url, client_id, client_secret, user_type, entity_type, request_body, expected_status):
     """
     Send a POST request with the provided JSON data
     Validate the response status code

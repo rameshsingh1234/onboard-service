@@ -28,7 +28,7 @@ def test_fiu_valid_schema(url, client_id, client_secret, user_type, entity_type,
 
 @pytest.mark.parametrize(
     "url, client_id, client_secret, user_type, entity_type, request_body, expected_status",
-    fiu_test_data.test_entity_api_request_schema)
+    fiu_test_data.fiu_entity_api_request_schema)
 def test_api_request(url, entity_type, client_id, client_secret, user_type, request_body, expected_status):
     api_endpoint = f"{url}/{entity_type}"
     headers = {

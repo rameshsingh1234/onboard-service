@@ -1,0 +1,24 @@
+PyBuilder version 0.13.10
+Build started at 2023-08-10 11:22:58
+------------------------------------------------------------
+[INFO]  Building onboard-service version 1.0.dev0
+[INFO]  Executing build in /home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard-service
+[INFO]  Going to execute task run_unit_tests
+[INFO]  Processing plugin packages 'coverage>=6.0' to be installed with {'upgrade': True}
+[INFO]  Processing plugin packages 'flake8>=4.0' to be installed with {'upgrade': True}
+[INFO]  Processing plugin packages 'pypandoc~=1.4' to be installed with {'upgrade': True}
+[INFO]  Processing plugin packages 'setuptools>=38.6.0' to be installed with {}
+[INFO]  Processing plugin packages 'twine>=1.15.0' to be installed with {'upgrade': True}
+[INFO]  Processing plugin packages 'unittest-xml-reporting>=3.0.4' to be installed with {'upgrade': True}
+[INFO]  Processing plugin packages 'wheel>=0.34.0' to be installed with {}
+[INFO]  Creating target 'build' VEnv in '/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard-service/target/venv/build/cpython-3.8.10.final.0'
+[INFO]  Creating target 'test' VEnv in '/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard-service/target/venv/test/cpython-3.8.10.final.0'
+[INFO]  Running unit tests
+[INFO]  Executing unit tests from Python modules in /home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard-service/src/unittest/python
+[INFO]  Executed 1 unit tests
+[ERROR] Test has error: unittest.loader._FailedTest.fiu_controller_tests
+------------------------------------------------------------
+BUILD FAILED - There were 1 error(s) and 0 failure(s) in unit tests (pybuilder/plugins/python/unittest_plugin.py:109)
+------------------------------------------------------------
+Build finished at 2023-08-10 11:23:02
+Build took 4 seconds (4746 ms)
