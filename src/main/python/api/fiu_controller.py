@@ -35,7 +35,8 @@ def create_fiu():
         return jsonify({"responseCode": 400,
                         "responseText": f"Required properties are missing, Required properties: {required_properties}"}), 400
 
-    config = read_config_file.read_config('/home/krishna/Tibil/sahamati/onboard-service/src/main/python/resources/application.json')
+    config = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
+                                          '-service/src/main/python/resources/application.json')
 
 
 
@@ -62,6 +63,7 @@ def create_fiu():
 
             # Add the fiu in CR
             res = cr.CentralRegistry(config, 'FIU').add_entity(data, access_token)
+            # print("Result",res)
             if res.status_code == 200:
                 client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'])
                 if not client_response:
@@ -71,7 +73,7 @@ def create_fiu():
                     return jsonify({"responseCode": 201, "responseText": client_response}), 201
 
             else:
-                return jsonify({"responseText": res.json()}), res.status_code
+                return jsonify({"Meassage":"Error - Central Registry", "responseText": res.json()}), res.status_code,
         else:
             return jsonify({"responseCode": 400, "responseText": "JSON data is not valid."}), 400
     #
@@ -157,7 +159,7 @@ def delete_fiu_by_id(entityId):
         return jsonify({"responseCode": 401, "responseText": "Unauthorized"}), 401
 
     # Validate entityId (assuming "some_existing_fiu_id" is the FIU to be deleted)
-    if entityId != "some_existing_fiu_id":
+    if entityId != "fiu@finarkein":
         return jsonify({"responseCode": 404, "responseText": "FIU is not found."}), 404
 
     # Perform the delete operation here

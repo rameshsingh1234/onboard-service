@@ -30,5 +30,5 @@ def read_schemas():
     return read_data(file)
 
 
-# read_headers = read_headers()
-# read_entities = read_entities()
+read_headers = read_headers()
+read_entities = read_entities()

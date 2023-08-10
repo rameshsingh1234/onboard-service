@@ -2,9 +2,9 @@
   "url": "http://127.0.0.1:5000",
   "version": "v1",
   "entityType": "FIU",
-  "clientID": "12345",
-  "clientSecret": "abc123",
-  "userType": "sahamati ops",
+  "clientID": "sahamati-admin",
+  "clientSecret": "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
+  "userType": "sahamati-ops",
   "expectedIP": ["103.224.243.153","103.224.243.227","103.41.11.178","103.41.11.177"],
   "entityID": ["testEntity","INDUSIND","fiu@finarkein"]
 }

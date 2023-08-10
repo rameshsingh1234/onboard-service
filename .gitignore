@@ -4,5 +4,5 @@ target/
 __pycache__/
 .gitignore.swp
 pyproject.toml
-src/unittest/python/demo/
+src/demo/
 .vscode/
