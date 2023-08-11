@@ -65,7 +65,7 @@ def create_fiu():
             res = cr.CentralRegistry(config, entity_type).add_entity(data, access_token)
             # print("Result",res)
             if res.status_code == 200:
-                client_response = keycloak_instance.create_client(access_token,entity_type, data['entityinfo']['id'],data['entityinfo']['baseurl'])
+                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'],data['entityinfo']['baseurl'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
 

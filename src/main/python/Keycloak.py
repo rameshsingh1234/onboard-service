@@ -39,7 +39,7 @@ class Keycloak:
             print("Failed to generate token: {}".format(response.status_code))
             return None
 
-    def create_client(self, access_token, entity_type, entity_id, base_url):
+    def create_client(self, access_token, entity_id, base_url):
         """
            Creates a new client instance using the provided access token and entity ID.
 
