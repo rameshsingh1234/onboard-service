@@ -16,13 +16,6 @@ def read_headers():
     return read_data(header_file)
 
 
-def read_entities():
-    resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources")
-    entities_file = os.path.join(resource_dir, "testEntities.json")
-    # print("data file path:", entities_file)
-    return read_data(entities_file)
-
-
 def read_schemas():
     """Function to read file"""
     resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources/schema")
@@ -36,6 +29,7 @@ def aa_read_schemas():
     file = os.path.join(resource_dir, "aa-schema.json")
     return read_data(file)
 
+
 def fip_read_schemas():
     """Function to read file"""
     resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources/schema")
@@ -44,4 +38,3 @@ def fip_read_schemas():
 
 
 read_headers = read_headers()
-read_entities = read_entities()

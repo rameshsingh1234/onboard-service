@@ -1,14 +1,15 @@
+import os
+
 from src.unittest.python.utils import read_config_file
 
-""" Read application config file"""
-conf = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
-                                    '-service/src/main/python/resources/application.json')
+conf = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "testHeaders.json"))
+
 fiu_valid_schema = [
     (
         f"{conf.get('url')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "FIU",
 
         {
@@ -61,9 +62,9 @@ fiu_valid_schema = [
 fiu_entity_api_request_schema = [
     (
         f"{conf.get('url')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "FIU",
 
         {
@@ -115,9 +116,9 @@ fiu_entity_api_request_schema = [
 fiu_create_entity = [
     (
         f"{conf.get('url')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "FIU",
 
         {
@@ -169,9 +170,9 @@ fiu_create_entity = [
 fiu_invalid_schema = [
     (
         f"{conf.get('url')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "FIU",
 
         {
@@ -221,9 +222,9 @@ fiu_invalid_schema = [
 fiu_create_entity_exist_schema = [
     (
         f"{conf.get('url')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "FIU",
 
         {

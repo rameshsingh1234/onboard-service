@@ -1,10 +1,6 @@
 {
-  "url": "http://127.0.0.1:5000",
-  "version": "v1",
-  "entityType": "FIU",
-  "clientID": "sahamati-admin",
-  "clientSecret": "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-  "userType": "sahamati-ops",
-  "expectedIP": ["103.224.243.153","103.224.243.227","103.41.11.178","103.41.11.177"],
-  "entityID": ["testEntity","INDUSIND","fiu@finarkein"]
+  "url": "http://localhost:5000/v1",
+  "client_id": "sahamati-admin",
+  "user_type": "sahamati-ops",
+  "client_secret": "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN"
 }

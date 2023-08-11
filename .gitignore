@@ -6,3 +6,8 @@ __pycache__/
 pyproject.toml
 src/demo/
 .vscode/
+.coverage
+src/unittest/python/AA/.coverage
+src/unittest/python/FIP/.coverage
+src/unittest/python/FIU/.coverage
+test_output.txt

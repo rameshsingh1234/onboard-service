@@ -1,15 +1,15 @@
+import os
+
 from src.unittest.python.utils import read_config_file
 
-""" Read application config file"""
-conf = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
-                                    '-service/src/main/python/resources/application.json')
-
+""" Read config file"""
+conf = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "testHeaders.json"))
 aa_valid_schema = [
     (
-        f"{conf.get('AAurl')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('url')}",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "AA",
 
         {
@@ -30,7 +30,7 @@ aa_valid_schema = [
                 "certificate": {
                     "alg": "RS256",
                     "e": "AQAB",
-                    "kid": "380a1ca9-7e0e-45cc-b585-50d1d0203099",
+                    "kid": "380a1ca9-7e0e-45cc-b585-50d1d0203099a112",
                     "kty": "RSA",
                     "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
                     "use": "sig"
@@ -61,10 +61,10 @@ aa_valid_schema = [
 
 aa_create_schema = [
     (
-        f"{conf.get('AAurl')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('url')}",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "AA",
 
         {
@@ -114,13 +114,12 @@ aa_create_schema = [
     )
 ]
 
-
 aa_invalid_schema = [
     (
-        f"{conf.get('AAurl')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('url')}",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "AA",
 
         {
@@ -169,10 +168,10 @@ aa_invalid_schema = [
 
 aa_exits_schema = [
     (
-        f"{conf.get('AAurl')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('url')}",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "AA",
 
         {
@@ -224,10 +223,10 @@ aa_exits_schema = [
 
 aa_request_schema = [
     (
-        f"{conf.get('AAurl')}",
-        "sahamati-admin",
-        "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
-        "sahamati-ops",
+        f"{conf.get('url')}",
+        f"{conf.get('client_id')}",
+        f"{conf.get('client_secret')}",
+        f"{conf.get('user_type')}",
         "AA",
 
         {

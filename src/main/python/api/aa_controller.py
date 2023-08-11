@@ -1,3 +1,4 @@
+import os
 import jsonschema
 from flask import Flask, request, jsonify
 import logging
@@ -7,12 +8,21 @@ from src.unittest.python.utils import read_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
+from flask import Blueprint
+
+aa_blueprint = Blueprint('/v1/AA', __name__)
 
 logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 
 
-@app.route('/v1/AA', methods=['POST'])
+@aa_blueprint.route('/Health', methods=['GET'])
+def v1_fiu_hev1_aa_health():
+    return jsonify({"status": "Active"})
+
+
+# @app.route('/v1/AA', methods=['POST'])
+@aa_blueprint.route('/', methods=['POST'])
 def create_aa():
     # Extract request headers and body
     headers = request.headers
@@ -28,8 +38,7 @@ def create_aa():
         return jsonify({"responseCode": 400,
                         "responseText": f"Required properties are missing, Required properties: {required_properties}"}), 400
 
-    config = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
-                                          '-service/src/main/python/resources/application.json')
+    config = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "application.json"))
 
     try:
         # Validate schema in the request body
@@ -47,15 +56,18 @@ def create_aa():
 
         validation_res = jdv.JsonDataValidator.relational_validator(data)
         if validation_res:
+
             # create access token from token service
             keycloak_instance = Keycloak.Keycloak(config)
             access_token = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
 
-            # Add the aa in CR
-            res = cr.CentralRegistry(config, 'AA').add_entity(data, access_token)
+            # Add the AA in CR
+            entity_type = 'AA'
+            res = cr.CentralRegistry(config, entity_type).add_entity(data, access_token)
             # print("Result",res)
             if res.status_code == 200:
-                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'])
+                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'],
+                                                                  data['entityinfo']['baseurl'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
 
@@ -78,7 +90,3 @@ def create_aa():
             return jsonify({"responseText": res.json()}), 201
         else:
             return jsonify({"responseText": res.json()}), res.status_code
-
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
