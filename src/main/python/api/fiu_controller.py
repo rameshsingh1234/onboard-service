@@ -1,3 +1,5 @@
+import os
+
 import jsonschema
 from flask import Flask, request, jsonify
 import logging
@@ -35,8 +37,7 @@ def create_fiu():
         return jsonify({"responseCode": 400,
                         "responseText": f"Required properties are missing, Required properties: {required_properties}"}), 400
 
-    config = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
-                                          '-service/src/main/python/resources/application.json')
+    config = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources","application.json"))
 
     try:
         # Validate schema in the request body
@@ -60,10 +61,11 @@ def create_fiu():
             access_token = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
 
             # Add the fiu in CR
-            res = cr.CentralRegistry(config, 'FIU').add_entity(data, access_token)
+            entity_type ='FIU'
+            res = cr.CentralRegistry(config, entity_type).add_entity(data, access_token)
             # print("Result",res)
             if res.status_code == 200:
-                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'])
+                client_response = keycloak_instance.create_client(access_token,entity_type, data['entityinfo']['id'],data['entityinfo']['baseurl'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
 

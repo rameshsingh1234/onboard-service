@@ -1,5 +1,7 @@
 import requests
 import json
+from src.unittest.python.utils import read_file
+import os
 
 
 class Keycloak:
@@ -37,13 +39,15 @@ class Keycloak:
             print("Failed to generate token: {}".format(response.status_code))
             return None
 
-    def create_client(self, access_token, entity_id):
+    def create_client(self, access_token, entity_type, entity_id, base_url):
         """
            Creates a new client instance using the provided access token and entity ID.
 
            Args:
                access_token (str): The access token used to authenticate the client.
+               entity_type (str): The entity type , supported values : AA,FIP,FIU
                entity_id (str): The entity id is used as client id.
+               base_url (str): base url
 
            Returns:
                Client: A new client  with the provided access token and entity ID, returns clientId and secret.
@@ -54,14 +58,14 @@ class Keycloak:
             "Content-Type": "application/json",
             "Authorization": f"Bearer {access_token}"}
 
-        payload = json.dumps({
-            "clientId": entity_id,
-            "protocol": "openid-connect",
-            "publicClient": False,
-            "enabled": True
-        })
+        fiu_template = self.conf.get('fiu_keycloak_client_template_filename')
+        payload = read_file.read_data(os.path.join(os.path.dirname(__file__), 'resources/templates', fiu_template))
+        payload['clientId'] = entity_id
+        payload['redirectUris'].clear()
+        payload['redirectUris'].append(base_url)
 
-        response = requests.request("POST", url, headers=headers, data=payload)
+        response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+        print("response::::", response.text)
         if response.status_code == 201:
             url = f"{self.conf.get('keycloak_base_url')}/admin/realms/{self.conf.get('realm')}/clients"
             headers = {

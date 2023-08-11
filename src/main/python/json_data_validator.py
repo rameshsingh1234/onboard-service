@@ -1,3 +1,5 @@
+import os
+
 from src.unittest.python.utils import read_file
 
 
@@ -5,9 +7,7 @@ class JsonDataValidator:
 
     @staticmethod
     def relational_validator(data):
-        validation_spec = read_file.read_data(
-            '/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard-service/src/main/python'
-            '/resources/data_validation_spec.json')
+        validation_spec = read_file.read_data(os.path.join(os.path.dirname(__file__), "resources","data_validation_spec.json"))
         for i in validation_spec['comparison']:
             if i['type'] == "equals":
                 validation_result = []

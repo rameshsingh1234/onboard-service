@@ -3,5 +3,6 @@
   "fiu_schema_filename": "fiu-schema.json",
   "url": "http://localhost:5000/v1",
    "keycloak_base_url": "http://localhost:8080",
-  "realm": "sahamati"
+  "realm": "sahamati",
+  "fiu_keycloak_client_template_filename":"fiu_client_template.json"
 }
