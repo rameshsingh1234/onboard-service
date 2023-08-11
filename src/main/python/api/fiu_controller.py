@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 
 @app.route('/v1/FIU/Health', methods=['GET'])
-def v1_fiu_health():
+def v1_fiu_hev1_fiu_health():
     return jsonify({"status": "Active"})
 
 
@@ -37,8 +37,6 @@ def create_fiu():
 
     config = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
                                           '-service/src/main/python/resources/application.json')
-
-
 
     try:
         # Validate schema in the request body
@@ -73,7 +71,7 @@ def create_fiu():
                     return jsonify({"responseCode": 201, "responseText": client_response}), 201
 
             else:
-                return jsonify({"Meassage":"Error - Central Registry", "responseText": res.json()}), res.status_code,
+                return jsonify({"Meassage": "Error - Central Registry", "responseText": res.json()}), res.status_code,
         else:
             return jsonify({"responseCode": 400, "responseText": "JSON data is not valid."}), 400
     #
@@ -88,7 +86,6 @@ def create_fiu():
             return jsonify({"responseText": res.json()}), 201
         else:
             return jsonify({"responseText": res.json()}), res.status_code
-
 
 
 @app.route('/v1/FIU', methods=['PUT'])

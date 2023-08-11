@@ -30,5 +30,18 @@ def read_schemas():
     return read_data(file)
 
 
+def aa_read_schemas():
+    """Function to read file"""
+    resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources/schema")
+    file = os.path.join(resource_dir, "aa-schema.json")
+    return read_data(file)
+
+def fip_read_schemas():
+    """Function to read file"""
+    resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources/schema")
+    file = os.path.join(resource_dir, "fip-schema.json")
+    return read_data(file)
+
+
 read_headers = read_headers()
 read_entities = read_entities()

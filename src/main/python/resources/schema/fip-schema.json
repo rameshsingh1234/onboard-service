@@ -1,0 +1,284 @@
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$id": "https://json-schema.org/draft/2019-09/schema",
+	"type": "object",
+	"properties": {
+		"ver": {
+			"type": "string",
+			"minLength": 1
+		},
+		"timestamp": {
+			"type": "string",
+			"minLength": 1
+		},
+		"txnid": {
+			"type": "string",
+			"minLength": 1
+		},
+		"requester": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1
+				},
+				"id": {
+					"type": "string",
+					"minLength": 1
+				}
+			},
+			"required": [
+				"name",
+				"id"
+			]
+		},
+		"entityinfo": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"minLength": 1
+				},
+				"id": {
+					"type": "string",
+					"minLength": 1
+				},
+				"code": {
+					"type": "string",
+					"minLength": 1
+				},
+				"entityhandle": {
+					"type": "string",
+					"minLength": 0
+				},
+				"Identifiers": {
+					"type": "array",
+					"contains": {
+						"type": "object",
+						"properties": {
+							"category": {
+								"type": "string",
+								"minLength": 1
+							},
+							"type": {
+								"type": "string",
+								"minLength": 1
+							}
+						},
+						"required": [
+							"category",
+							"type"
+						]
+					}
+				},
+				"baseurl": {
+					"type": "string",
+					"minLength": 1
+				},
+				"fitypes": {
+					"type": "array",
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"certificate": {
+					"type": "object",
+					"properties": {
+						"alg": {
+							"type": "string",
+							"minLength": 1
+						},
+						"e": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kid": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kty": {
+							"type": "string",
+							"minLength": 1
+						},
+						"n": {
+							"type": "string",
+							"minLength": 1
+						},
+						"use": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": [
+						"alg",
+						"e",
+						"kid",
+						"kty",
+						"n",
+						"use"
+					]
+				},
+				"gsp": {
+					"type": [
+						"array",
+						"null"
+					],
+					"contains": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"minLength": 1
+							},
+							"name": {
+								"type": "string",
+								"minLength": 1
+							},
+							"ip": {
+								"type": "string",
+								"minLength": 1
+							},
+							"url": {
+								"type": "string",
+								"minLength": 1
+							},
+							"certificate": {
+								"type": "object",
+								"properties": {
+									"alg": {
+										"type": "string",
+										"minLength": 1
+									},
+									"e": {
+										"type": "string",
+										"minLength": 1
+									},
+									"kid": {
+										"type": "string",
+										"minLength": 1
+									},
+									"kty": {
+										"type": "string",
+										"minLength": 1
+									},
+									"n": {
+										"type": "string",
+										"minLength": 1
+									},
+									"use": {
+										"type": "string",
+										"minLength": 1
+									}
+								},
+								"required": [
+									"alg",
+									"e",
+									"kid",
+									"kty",
+									"n",
+									"use"
+								]
+							}
+						},
+						"required": [
+							"id",
+							"name",
+							"ip",
+							"url",
+							"certificate"
+						]
+					}
+				},
+				"inboundports": {
+					"type": [
+						"array",
+						"null"
+					],
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"outboundports": {
+					"type": [
+						"array",
+						"null"
+					],
+					"contains": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"ips": {
+					"type": [
+						"array",
+						"null"
+					],
+					"minItems": 0,
+					"items": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"credentialsPk": {
+					"type": [
+						"object",
+						"null"
+					],
+					"properties": {
+						"alg": {
+							"type": "string",
+							"minLength": 1
+						},
+						"e": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kid": {
+							"type": "string",
+							"minLength": 1
+						},
+						"kty": {
+							"type": "string",
+							"minLength": 1
+						},
+						"n": {
+							"type": "string",
+							"minLength": 1
+						},
+						"use": {
+							"type": "string",
+							"minLength": 1
+						}
+					},
+					"required": [
+						"alg",
+						"e",
+						"kid",
+						"kty",
+						"n",
+						"use"
+					]
+				}
+			},
+			"required": [
+				"name",
+				"id",
+				"code",
+				"Identifiers",
+				"baseurl",
+				"fitypes",
+				"entityhandle",
+				"certificate"
+			]
+		}
+	},
+	"required": [
+		"ver",
+		"timestamp",
+		"txnid",
+		"requester",
+		"entityinfo"
+	]
+}
