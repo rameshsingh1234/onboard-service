@@ -2,9 +2,8 @@ import os
 import jsonschema
 from flask import Flask, request, jsonify
 import logging
-from src.unittest.python.utils import read_config_file
 from src.main.python.schemaValidator import SchemaValidator
-from src.unittest.python.utils import read_file
+from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak

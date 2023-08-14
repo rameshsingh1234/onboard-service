@@ -7,7 +7,7 @@ class JsonDataValidator:
 
     @staticmethod
     def relational_validator(data):
-        validation_spec = read_file.read_data(os.path.join(os.path.dirname(__file__), "resources","data_validation_spec.json"))
+        validation_spec = read_file.read_data(os.path.join(os.path.dirname(__file__), "resources", "data_validation_spec.json"))
         for i in validation_spec['comparison']:
             if i['type'] == "equals":
                 validation_result = []

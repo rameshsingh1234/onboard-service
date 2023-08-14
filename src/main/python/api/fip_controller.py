@@ -2,9 +2,8 @@ import os
 import jsonschema
 from flask import Flask, request, jsonify
 import logging
-from src.unittest.python.utils import read_config_file
 from src.main.python.schemaValidator import SchemaValidator
-from src.unittest.python.utils import read_file
+from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
@@ -38,14 +37,13 @@ def create_fip():
         return jsonify({"responseCode": 400,
                         "responseText": f"Required properties are missing, Required properties: {required_properties}"}), 400
 
-    # config = read_config_file.read_config('/home/amith/Desktop/Onboard-Service-Vishwaas/onboard-service-AUG09/onboard'
-                                          # '-service/src/main/python/resources/application.json')
-
-    config = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "application.json"))
+    config = read_config_file.read_config(
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "application.json"))
 
     try:
         # Validate schema in the request body
         validator = SchemaValidator(schema=read_file.fip_read_schemas())
+        # print(validator)
         validator.validate_or_raise(data)
         app.logger.info("JSON is valid according to the schema.")
 

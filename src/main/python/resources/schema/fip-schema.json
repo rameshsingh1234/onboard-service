@@ -79,7 +79,15 @@
 					"type": "array",
 					"contains": {
 						"type": "string",
-						"minLength": 1
+						"minLength": 1,
+						"enumValues": ["Deposit","Recurring Deposit","Term Deposit","Commercial Paper (CP)",
+										"Certificates of Deposit (CD)","Government Securities (G-Sec)",
+										"Systematic Investment Plan (SIP)","Equity Shares","Mutual Fund Units",
+										"Exchange Traded Funds (ETF)","Indian Depository Receipts (IDR)",
+										"Collective Investment Schemes (CIS)","Alternative Investment Funds (AIF) Units",
+										"Units of Infrastructure Investment Trusts (INVIT)",
+										"Units of Real Estate Investment Trusts (REIT)",
+										"Bonds","Debentures"]
 					}
 				},
 				"certificate": {

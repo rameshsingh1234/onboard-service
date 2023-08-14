@@ -12,7 +12,6 @@ def read_data(data_file_path):
 def read_headers():
     resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources")
     header_file = os.path.join(resource_dir, "testHeaders.json")
-    # print("Header file path:", header_file)
     return read_data(header_file)
 
 
@@ -26,6 +25,7 @@ def read_schemas():
 def aa_read_schemas():
     """Function to read file"""
     resource_dir = os.path.join(os.path.dirname(__file__), "..", "resources/schema")
+    print(resource_dir)
     file = os.path.join(resource_dir, "aa-schema.json")
     return read_data(file)
 

@@ -3,8 +3,8 @@ import os
 from src.unittest.python.utils import read_config_file
 
 """ Read config file"""
-conf = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "testHeaders.json"))
-
+conf = read_config_file.read_config(
+    os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "testHeaders.json"))
 
 fip_valid_schema = [
     (
@@ -34,9 +34,10 @@ fip_valid_schema = [
                 ],
                 "baseurl": "https://aauat.finvu.in/API/V1",
                 "fitypes": [
-                    "DEPOSIT",
-                    "RECURRING_DEPOSIT",
-                    "TERM-DEPOSIT"
+                    "Term Deposit",
+                    "Deposit",
+                    "Recurring Deposit"
+
                 ],
                 "certificate": {
                     "alg": "RS256",
@@ -99,9 +100,7 @@ fip_create_schema = [
                 ],
                 "baseurl": "https://aauat.finvu.in/API/V1",
                 "fitypes": [
-                    "DEPOSIT",
-                    "RECURRING_DEPOSIT",
-                    "TERM-DEPOSIT"
+                    "Deposit"
                 ],
                 "certificate": {
                     "alg": "RS256",
@@ -161,9 +160,10 @@ fip_invalid_schema = [
                 ],
                 "baseurl": "https://aauat.finvu.in/API/V1",
                 "fitypes": [
-                    "DEPOSIT",
-                    "RECURRING_DEPOSIT",
-                    "TERM-DEPOSIT"
+                    "Term Deposit",
+                    "Deposit",
+                    "Recurring Deposit"
+
                 ],
                 "certificate": {
                     "alg": "RS256",
@@ -226,9 +226,10 @@ fip_exist_schema = [
                 ],
                 "baseurl": "https://aauat.finvu.in/API/V1",
                 "fitypes": [
-                    "DEPOSIT",
-                    "RECURRING_DEPOSIT",
-                    "TERM-DEPOSIT"
+                    "Term Deposit",
+                    "Deposit",
+                    "Recurring Deposit"
+
                 ],
                 "certificate": {
                     "alg": "RS256",
@@ -291,9 +292,10 @@ fip_request_schema = [
                 ],
                 "baseurl": "https://aauat.finvu.in/API/V1",
                 "fitypes": [
-                    "DEPOSIT",
-                    "RECURRING_DEPOSIT",
-                    "TERM-DEPOSIT"
+                    "Term Deposit",
+                    "Deposit",
+                    "Recurring Deposit"
+
                 ],
                 "certificate": {
                     "alg": "RS256",
