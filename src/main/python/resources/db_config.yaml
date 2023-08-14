@@ -1,0 +1,7 @@
+# db_config.yaml
+
+dbname: sahamati_cr
+user: postgres
+password: root
+host: localhost
+port: 5432

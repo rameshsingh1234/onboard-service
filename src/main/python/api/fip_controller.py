@@ -43,7 +43,6 @@ def create_fip():
     try:
         # Validate schema in the request body
         validator = SchemaValidator(schema=read_file.fip_read_schemas())
-        # print(validator)
         validator.validate_or_raise(data)
         app.logger.info("JSON is valid according to the schema.")
 
@@ -65,7 +64,6 @@ def create_fip():
             # Add the fip in CR
             entity_type = 'FIP'
             res = cr.CentralRegistry(config, entity_type).add_entity(data, access_token)
-            # print("Result",res)
             if res.status_code == 200:
                 client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'],
                                                                   data['entityinfo']['baseurl'])

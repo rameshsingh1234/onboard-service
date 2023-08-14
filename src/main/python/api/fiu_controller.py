@@ -68,7 +68,6 @@ def create_fiu():
             # Add the fiu in CR
             entity_type ='FIU'
             res = cr.CentralRegistry(config, entity_type).add_entity(data, access_token)
-            # print("Result",res)
             if res.status_code == 200:
                 client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'],data['entityinfo']['baseurl'])
                 if not client_response:
