@@ -8,6 +8,7 @@ from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
 from flask import Blueprint
+from src.main.python.models.database import app,insert_data
 
 fip_blueprint = Blueprint('/v1/FIP', __name__)
 
@@ -69,9 +70,11 @@ def create_fip():
                                                                   data['entityinfo']['baseurl'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
-
                 else:
-                    return jsonify({"responseCode": 201, "responseText": client_response}), 201
+                    if insert_data(data['entityinfo']['id'], headers['clientId'], headers['userType']):
+                        return jsonify({"responseCode": 201, "responseText": client_response}), 201
+                    else:
+                        return jsonify({"responseCode": 500, "responseText": "Failed to create user"}), 500
 
             else:
                 return jsonify({"Meassage": "Error - Central Registry", "responseText": res.json()}), res.status_code,
@@ -89,6 +92,3 @@ def create_fip():
             return jsonify({"responseText": res.json()}), 201
         else:
             return jsonify({"responseText": res.json()}), res.status_code
-
-# if __name__ == '__main__':
-#     app.run(debug=True, port=9000)

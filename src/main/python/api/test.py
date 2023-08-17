@@ -9,12 +9,11 @@ absolute_path = os.path.dirname(__file__)
 current_directory = os.path.dirname(__file__)  # Get the current directory of the script
 config_file_path = os.path.join(current_directory, "config", "config_file.yaml")
 
-upper_dir = os.path.join(os.path.dirname(current_directory), "config_file","q.yaml")
-
+upper_dir = os.path.join(os.path.dirname(current_directory), "config_file", "q.yaml")
 
 print(upper_dir)
-data ={
-    "baseurl":[]
+data = {
+    "baseurl": []
 }
 data['baseurl'].clear()
 data['baseurl'].append('http')
