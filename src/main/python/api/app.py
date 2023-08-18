@@ -1,9 +1,10 @@
-# main.py
-
 from fiu_controller import fiu_blueprint
 from fip_controller import fip_blueprint
 from aa_controller import aa_blueprint
-from src.main.python.models.database import app,db,create_tables
+from src.main.python.models.database import app, create_tables, setup_db_config
+
+# Initialize app and set up database configuration
+setup_db_config(app)
 
 # Create tables before running the app
 create_tables()

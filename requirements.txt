@@ -1,18 +1,19 @@
 # all the python packages 
-requests~=2.31.0
-pytest~=7.4.0
-PyYAML~=6.0.1
+requests
+pytest
+PyYAML
 setuptools~=65.5.1
 pip~=23.2.1
 wheel~=0.38.4
 packaging~=23.1
-pybuilder~=0.13.10
+pybuilder
 urllib3~=2.0.4
 certifi~=2023.7.22
 pluggy~=1.2.0
 idna~=3.4
-Flask~=2.3.2
+Flask
 jwt~=1.3.1
 PyJWT~=2.8.0
-jsonschema~=4.19.0
-SQLAlchemy~=2.0.20
+jsonschema
+SQLAlchemy
+azure
