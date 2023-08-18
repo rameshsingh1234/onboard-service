@@ -1,7 +1,10 @@
+from flask import Flask
 from fiu_controller import fiu_blueprint
 from fip_controller import fip_blueprint
 from aa_controller import aa_blueprint
-from src.main.python.models.database import app, create_tables, setup_db_config
+from src.main.python.models.database import create_tables, setup_db_config
+
+app = Flask(__name__)
 
 # Initialize app and set up database configuration
 setup_db_config(app)

@@ -1,8 +1,7 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
 from sqlalchemy import inspect
-
+from src.main.python.api.app import app
 from src.unittest.python.utils import read_config_file
 
 
@@ -15,7 +14,6 @@ def setup_db_config(app):
     return db_params
 
 
-app = Flask(__name__)
 db_params = setup_db_config(app)
 db = SQLAlchemy(app)
 

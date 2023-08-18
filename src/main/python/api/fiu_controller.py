@@ -2,21 +2,21 @@ import os
 import jsonschema
 from flask import request, jsonify
 import logging
+from src.main.python.api.app import app
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
 from flask import Blueprint
-from src.main.python.models.database import app, insert_data
+from src.main.python.models.database import insert_data
 
 fiu_blueprint = Blueprint('/v1/FIU', __name__)
 
 logging.basicConfig(level=logging.DEBUG)
 
 
-# @app.route('/v1/FIU/Health', methods=['GET'])
-@fiu_blueprint.route('/Health', methods =['GET'])
+@fiu_blueprint.route('/Health', methods=['GET'])
 def v1_fiu_health():
     return jsonify({"status": "Active"})
 
@@ -40,7 +40,8 @@ def create_fiu():
         return jsonify({"responseCode": 400,
                         "responseText": f"Required properties are missing, Required properties: {required_properties}"}), 400
 
-    config = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "application.json"))
+    config = read_config_file.read_config(
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "application.json"))
 
     try:
         # Validate schema in the request body
@@ -64,10 +65,11 @@ def create_fiu():
             access_token = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
 
             # Add the fiu in CR
-            entity_type ='FIU'
+            entity_type = 'FIU'
             res = cr.CentralRegistry(config, entity_type).add_entity(data, access_token)
             if res.status_code == 200:
-                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'],data['entityinfo']['baseurl'])
+                client_response = keycloak_instance.create_client(access_token, data['entityinfo']['id'],
+                                                                  data['entityinfo']['baseurl'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
                 else:

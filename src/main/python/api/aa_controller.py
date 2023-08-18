@@ -1,14 +1,18 @@
+import logging
 import os
 import jsonschema
 from flask import Blueprint, request, jsonify
+from src.main.python.api.app import app
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
-from src.main.python.models.database import app, insert_data
+from src.main.python.models.database import insert_data
 
 aa_blueprint = Blueprint('/v1/AA', __name__)
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 @aa_blueprint.route('/Health', methods=['GET'])
