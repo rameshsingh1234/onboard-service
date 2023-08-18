@@ -21,7 +21,6 @@ def v1_fiu_health():
     return jsonify({"status": "Active"})
 
 
-# @app.route('/v1/FIU', methods=['POST'])
 @fiu_blueprint.route('/', methods=['POST'])
 def create_fiu():
     # Extract request headers and body

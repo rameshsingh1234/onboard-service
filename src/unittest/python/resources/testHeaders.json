@@ -2,5 +2,6 @@
   "url": "http://localhost:5000/v1",
   "client_id": "sahamati-admin",
   "user_type": "sahamati-ops",
-  "client_secret": "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN"
+  "client_secret": "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN",
+  "keycloak_base_url": "http://localhost:8080"
 }

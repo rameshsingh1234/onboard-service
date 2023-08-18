@@ -1,6 +1,7 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
+
 from src.main.python.api.app import app
 from src.unittest.python.utils import read_config_file
 
