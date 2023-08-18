@@ -45,7 +45,6 @@ class Keycloak:
 
            Args:
                access_token (str): The access token used to authenticate the client.
-               entity_type (str): The entity type , supported values : AA,FIP,FIU
                entity_id (str): The entity id is used as client id.
                base_url (str): base url
 

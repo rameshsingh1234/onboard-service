@@ -13,7 +13,6 @@ from src.main.python.models.database import app,insert_data
 fip_blueprint = Blueprint('/v1/FIP', __name__)
 
 logging.basicConfig(level=logging.DEBUG)
-app = Flask(__name__)
 
 
 @fip_blueprint.route('/Health', methods=['GET'])

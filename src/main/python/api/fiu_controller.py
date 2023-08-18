@@ -1,7 +1,6 @@
 import os
-
 import jsonschema
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 import logging
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file, read_config_file
@@ -14,7 +13,6 @@ from src.main.python.models.database import app, insert_data
 fiu_blueprint = Blueprint('/v1/FIU', __name__)
 
 logging.basicConfig(level=logging.DEBUG)
-app = Flask(__name__)
 
 
 # @app.route('/v1/FIU/Health', methods=['GET'])
