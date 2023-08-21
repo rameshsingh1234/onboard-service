@@ -1,6 +1,6 @@
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.network import NetworkManagementClient
-import utils.azure_cred as az
+from src.main.python.utils import azure_cred as az
 
 
 class WAFPolicy:
@@ -45,33 +45,33 @@ class WAFPolicy:
         print(response)
 
 
-if __name__ == "__main__":
-
-    client = NetworkManagementClient(
-        credential=DefaultAzureCredential(),
-        subscription_id=az.subscription_id
-    )
-    waf_policy = WAFPolicy(client, az.resource_group_name,az.waf_policy_name)
-    new_custom_rules = [{
-        "name": "myrule4",
-        "priority": 1,
-        "ruleType": "MatchRule",
-        "action": "Allow",
-        "state": "Enabled",
-        "matchConditions": [
-            {
-                "matchVariables": [
-                    {
-                        "variableName": "RemoteAddr"
-                    }
-                ],
-                "operator": "IPMatch",
-                "negationConditon": False,
-                "matchValues": [
-                    "192.168.3.0/24"
-                ],
-                "transforms": []
-            }
-        ]
-    }]
-    waf_policy.add_custom_rules(new_custom_rules)
+# if __name__ == "__main__":
+#
+#     client = NetworkManagementClient(
+#         credential=DefaultAzureCredential(),
+#         subscription_id=az.subscription_id
+#     )
+#     waf_policy = WAFPolicy(client, az.resource_group_name,az.waf_policy_name)
+#     new_custom_rules = [{
+#         "name": "myrule4",
+#         "priority": 1,
+#         "ruleType": "MatchRule",
+#         "action": "Allow",
+#         "state": "Enabled",
+#         "matchConditions": [
+#             {
+#                 "matchVariables": [
+#                     {
+#                         "variableName": "RemoteAddr"
+#                     }
+#                 ],
+#                 "operator": "IPMatch",
+#                 "negationConditon": False,
+#                 "matchValues": [
+#                     "192.168.3.0/24"
+#                 ],
+#                 "transforms": []
+#             }
+#         ]
+#     }]
+#     waf_policy.add_custom_rules(new_custom_rules)

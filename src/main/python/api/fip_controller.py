@@ -10,6 +10,10 @@ from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
 from flask import Blueprint
 from src.main.python.models.database import insert_data
+from src.main.python.azure_waf_policy_manager import WAFPolicy
+from azure.identity import DefaultAzureCredential
+from azure.mgmt.network import NetworkManagementClient
+from src.main.python.utils import azure_cred as az
 
 fip_blueprint = Blueprint('/v1/FIP', __name__)
 
@@ -71,6 +75,34 @@ def create_fip():
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
                 else:
+                    client = NetworkManagementClient(
+                        credential=DefaultAzureCredential(),
+                        subscription_id=az.subscription_id
+                    )
+                    waf_policy = WAFPolicy(client, az.resource_group_name, az.waf_policy_name)
+                    new_custom_rules = [{
+                        "name": "myrule4",
+                        "priority": 1,
+                        "ruleType": "MatchRule",
+                        "action": "Allow",
+                        "state": "Enabled",
+                        "matchConditions": [
+                            {
+                                "matchVariables": [
+                                    {
+                                        "variableName": "RemoteAddr"
+                                    }
+                                ],
+                                "operator": "IPMatch",
+                                "negationConditon": False,
+                                "matchValues": [
+                                    "192.168.3.0/24"
+                                ],
+                                "transforms": []
+                            }
+                        ]
+                    }]
+                    waf_policy.add_custom_rules(new_custom_rules)
                     if insert_data(data['entityinfo']['id'], headers['clientId'], headers['userType']):
                         return jsonify({"responseCode": 201, "responseText": client_response}), 201
                     else:
