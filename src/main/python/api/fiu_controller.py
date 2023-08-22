@@ -48,7 +48,7 @@ def create_fiu():
 
     try:
         # Validate schema in the request body
-        validator = SchemaValidator(schema=read_file.read_schemas())
+        validator = SchemaValidator(schema=read_file.fiu_read_schemas())
         validator.validate_or_raise(data)
         app.logger.info("JSON is valid according to the schema.")
 
