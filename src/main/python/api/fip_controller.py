@@ -1,18 +1,23 @@
 import os
 import jsonschema
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 import logging
+from src.main.python.api.app import app
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
 from flask import Blueprint
+from src.main.python.models.database import insert_data
+from src.main.python.azure_waf_policy_manager import WAFPolicy
+from azure.identity import DefaultAzureCredential
+from azure.mgmt.network import NetworkManagementClient
+from src.main.python.utils import azure_cred as az
 
 fip_blueprint = Blueprint('/v1/FIP', __name__)
 
 logging.basicConfig(level=logging.DEBUG)
-app = Flask(__name__)
 
 
 @fip_blueprint.route('/Health', methods=['GET'])
@@ -69,9 +74,39 @@ def create_fip():
                                                                   data['entityinfo']['baseurl'])
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
-
                 else:
-                    return jsonify({"responseCode": 201, "responseText": client_response}), 201
+                    client = NetworkManagementClient(
+                        credential=DefaultAzureCredential(),
+                        subscription_id=az.subscription_id
+                    )
+                    waf_policy = WAFPolicy(client, az.resource_group_name, az.waf_policy_name)
+                    new_custom_rules = [{
+                        "name": "myrule4",
+                        "priority": 1,
+                        "ruleType": "MatchRule",
+                        "action": "Allow",
+                        "state": "Enabled",
+                        "matchConditions": [
+                            {
+                                "matchVariables": [
+                                    {
+                                        "variableName": "RemoteAddr"
+                                    }
+                                ],
+                                "operator": "IPMatch",
+                                "negationConditon": False,
+                                "matchValues": [
+                                    "192.168.3.0/24"
+                                ],
+                                "transforms": []
+                            }
+                        ]
+                    }]
+                    waf_policy.add_custom_rules(new_custom_rules)
+                    if insert_data(data['entityinfo']['id'], headers['clientId'], headers['userType']):
+                        return jsonify({"responseCode": 201, "responseText": client_response}), 201
+                    else:
+                        return jsonify({"responseCode": 500, "responseText": "Failed to create user"}), 500
 
             else:
                 return jsonify({"Meassage": "Error - Central Registry", "responseText": res.json()}), res.status_code,
@@ -89,6 +124,3 @@ def create_fip():
             return jsonify({"responseText": res.json()}), 201
         else:
             return jsonify({"responseText": res.json()}), res.status_code
-
-# if __name__ == '__main__':
-#     app.run(debug=True, port=9000)

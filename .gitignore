@@ -12,3 +12,4 @@ src/unittest/python/FIP/.coverage
 src/unittest/python/FIU/.coverage
 test_output.txt
 .scannerwork/
+src/demo/db_connection.py

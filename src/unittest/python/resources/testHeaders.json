@@ -2,5 +2,10 @@
   "url": "http://localhost:5000/v1",
   "client_id": "sahamati-admin",
   "user_type": "sahamati-ops",
-  "client_secret": "Eqt2Q8L5mc2QsfcVv147fvDyxxQP4SMN"
+  "client_secret": "CT8PCSNmBhNyTFr6k6gfmtme4OqlHKWb",
+  "keycloak_base_url": "http://localhost:8080",
+  "fiu_schema_filename": "fiu-schema.json",
+  "realm": "sahamati",
+  "entity_id" : "Tibil-Entity",
+  "fiu_keycloak_client_template_filename":"fiu_client_template.json"
 }

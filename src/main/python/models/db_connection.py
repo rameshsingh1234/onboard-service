@@ -1,19 +1,11 @@
-# Python with postgres Db connection
+import os
+from src.unittest.python.utils import read_config_file
 
 
-def get_db_config():
-    '''
-    use try catch method to
-    Read database configuration from the resources
-    '''
+def setup_db_config(app):
+    db_params = read_config_file.read_config(
+        os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "db_config.yaml"))
 
-def create_table():
-    """
-    using try catch method to
-    create the 'user_info' table if it doesn't exist in the db
-    """
-
-def insert_data():
-    """
-    insert the data to the user_info table
-    """
+    app.config[
+        'SQLALCHEMY_DATABASE_URI'] = f"postgresql://{db_params['user']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['dbname']}"
+    return db_params

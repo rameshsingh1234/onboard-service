@@ -29,29 +29,30 @@ fiu_valid_schema = [
                 "certificate": {
                     "alg": "RS256",
                     "e": "AQAB",
-                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7a11",
+                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7ab10",
                     "kty": "RSA",
                     "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK"
                          "-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
                     "use": "sig"
                 },
-                "tokeninfo": {
-                    "url": "https://www.finvu.in/fip/tokens",
-                    "maxcalls": 100,
-                    "desc": "string"
-                },
-                "signature": {
-                    "signValue": "eyJraWQiOiJrZXlJZDEiLCJhbGciOiJSUzI1NiJ9"
-                },
                 "inboundports": [
-                    "port"
+                    "8080"
                 ],
                 "outboundports": [
-                    "port"
+                    "9595"
                 ],
                 "ips": [
-                    "ips"
-                ]
+                    "103.224.243.153",
+                    "103.224.243.227"
+                ],
+                "credentialsPk": {
+                    "alg": "br256",
+                    "e": "AVQAB",
+                    "kid": "6680a1ca9-7e0e-45cc-b585-50d1d0203099",
+                    "kty": "VAR",
+                    "n": "srgU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "use": "aha"
+                }
             }
         },
         201
@@ -84,30 +85,33 @@ fiu_entity_api_request_schema = [
                 "certificate": {
                     "alg": "RS256",
                     "e": "AQAB",
-                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7ab1",
+                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7aa1",
                     "kty": "RSA",
-                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK"
+                         "-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
                     "use": "sig"
                 },
-                "tokeninfo": {
-                    "url": "https://www.finvu.in/fip/tokens",
-                    "maxcalls": 100,
-                    "desc": "string"
-                },
-                "signature": {
-                    "signValue": "eyJraWQiOiJrZXlJZDEiLCJhbGciOiJSUzI1NiJ9"
-                },
                 "inboundports": [
-                    "port"
+                    "8080"
                 ],
                 "outboundports": [
-                    "port"
+                    "9595"
                 ],
                 "ips": [
-                    "ips"
-                ]
+                    "103.224.243.153",
+                    "103.224.243.227"
+                ],
+                "credentialsPk": {
+                    "alg": "br256",
+                    "e": "AVQAB",
+                    "kid": "6680a1ca9-7e0e-45cc-b585-50d1d0203099",
+                    "kty": "VAR",
+                    "n": "srgU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "use": "aha"
+                }
             }
-        },
+        }
+        ,
         201
     )
 
@@ -138,28 +142,30 @@ fiu_create_entity = [
                 "certificate": {
                     "alg": "RS256",
                     "e": "AQAB",
-                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7ab2",
+                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7aa2",
                     "kty": "RSA",
-                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK"
+                         "-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
                     "use": "sig"
                 },
-                "tokeninfo": {
-                    "url": "https://www.finvu.in/fip/tokens",
-                    "maxcalls": 100,
-                    "desc": "string"
-                },
-                "signature": {
-                    "signValue": "eyJraWQiOiJrZXlJZDEiLCJhbGciOiJSUzI1NiJ9"
-                },
                 "inboundports": [
-                    "port"
+                    "8080"
                 ],
                 "outboundports": [
-                    "port"
+                    "9595"
                 ],
                 "ips": [
-                    "ips"
-                ]
+                    "103.224.243.153",
+                    "103.224.243.227"
+                ],
+                "credentialsPk": {
+                    "alg": "br256",
+                    "e": "AVQAB",
+                    "kid": "6680a1ca9-7e0e-45cc-b585-50d1d0203099",
+                    "kty": "VAR",
+                    "n": "srgU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "use": "aha"
+                }
             }
         },
         201
@@ -182,36 +188,37 @@ fiu_invalid_schema = [
 
             "entityinfo": {
                 "name": "Finarkein Analytics Pvt. Ltd.",
-                "id": "fiu5@finarkein",
-                "code": "fiu5@finarkein",
-                "oldEntityId": "testEntity",
+                "id": "fiu@finarkein",
+                "code": "fiu@finarkein",
                 "entityhandle": "fiu",
                 "baseurl": "https://ode.finarkein.com/aa/fiu",
                 "certificate": {
                     "alg": "RS256",
                     "e": "AQAB",
-                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7a13",
+                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7a11",
                     "kty": "RSA",
-                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK"
+                         "-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
                     "use": "sig"
                 },
-                "tokeninfo": {
-                    "url": "https://www.finvu.in/fip/tokens",
-                    "maxcalls": 100,
-                    "desc": "string"
-                },
-                "signature": {
-                    "signValue": "eyJraWQiOiJrZXlJZDEiLCJhbGciOiJSUzI1NiJ9"
-                },
                 "inboundports": [
-                    "port"
+                    "8080"
                 ],
                 "outboundports": [
-                    "port"
+                    "9595"
                 ],
                 "ips": [
-                    "ips"
-                ]
+                    "103.224.243.153",
+                    "103.224.243.227"
+                ],
+                "credentialsPk": {
+                    "alg": "br256",
+                    "e": "AVQAB",
+                    "kid": "6680a1ca9-7e0e-45cc-b585-50d1d0203099",
+                    "kty": "VAR",
+                    "n": "srgU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "use": "aha"
+                }
             }
         },
         400
@@ -244,28 +251,30 @@ fiu_create_entity_exist_schema = [
                 "certificate": {
                     "alg": "RS256",
                     "e": "AQAB",
-                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7ab3",
+                    "kid": "5ebd671b-762c-49b0-99ce-65642b113d7a11",
                     "kty": "RSA",
-                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "n": "gU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK"
+                         "-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
                     "use": "sig"
                 },
-                "tokeninfo": {
-                    "url": "https://www.finvu.in/fip/tokens",
-                    "maxcalls": 100,
-                    "desc": "string"
-                },
-                "signature": {
-                    "signValue": "eyJraWQiOiJrZXlJZDEiLCJhbGciOiJSUzI1NiJ9"
-                },
                 "inboundports": [
-                    "port"
+                    "8080"
                 ],
                 "outboundports": [
-                    "port"
+                    "9595"
                 ],
                 "ips": [
-                    "ips"
-                ]
+                    "103.224.243.153",
+                    "103.224.243.227"
+                ],
+                "credentialsPk": {
+                    "alg": "br256",
+                    "e": "AVQAB",
+                    "kid": "6680a1ca9-7e0e-45cc-b585-50d1d0203099",
+                    "kty": "VAR",
+                    "n": "srgU8PDUSzaHtMOYJd9NDLJ-2dAE1lXUCgZK-N6y9vRDCurscfQlTHKZliBbhiEsMCk70_nbDie6YKXWavJKj0X4nzoa1H7jrRjKa7R80BlqtSKl95TuynUChrHvvsvcjDSXp4d4PCNZ0Hdp7j0K-QSiR4OHGb3Irm9vgv3tPdh00ijPwqFJRFSkofFiUSRp-7BXWQXvnnH0sEIMvGjCxj4hAz3J35X5KPfRaax5MCQPr1-WkOgGYvpNPaDjSjsvhtOZQMcmvy_AaoRk6FADHkIRJU14dzw9alI4dp5Yp52CRg-bPDYReQe4e3j4I8DP3i0JTkV_fJOgDKPnFpRDmDNw",
+                    "use": "aha"
+                }
             }
         },
         409
