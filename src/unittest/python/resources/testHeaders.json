@@ -2,7 +2,7 @@
   "url": "http://localhost:5000/v1",
   "client_id": "sahamati-admin",
   "user_type": "sahamati-ops",
-  "client_secret": "CT8PCSNmBhNyTFr6k6gfmtme4OqlHKWb",
+  "client_secret": " ",
   "keycloak_base_url": "http://localhost:8080",
   "fiu_schema_filename": "fiu-schema.json",
   "realm": "sahamati",

@@ -23,5 +23,5 @@ def test_database_connection(db_params):
         pytest.fail(f"Database connection failed: {e}")
 
 
-if __name__ == '__main__':
-    pytest.main([__file__])
+# if __name__ == '__main__':
+#     pytest.main([__file__])
