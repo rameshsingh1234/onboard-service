@@ -1,18 +1,16 @@
+import json
 import logging
 import os
 import jsonschema
 from flask import Blueprint, request, jsonify
 from src.main.python.api.app import app
+from src.main.python.azure_waf_policy_manager import configure_waf_policy
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
 from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
 from src.main.python.models.database import insert_data
-from src.main.python.azure_waf_policy_manager import WAFPolicy
-from azure.identity import DefaultAzureCredential
-from azure.mgmt.network import NetworkManagementClient
-from src.main.python.utils import azure_cred as az
 
 aa_blueprint = Blueprint('/v1/AA', __name__)
 
@@ -59,7 +57,19 @@ def create_aa():
         if validation_res:
             # create access token from token service
             keycloak_instance = Keycloak.Keycloak(config)
-            access_token = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
+            token_response = keycloak_instance.get_token(headers['clientId'], headers['clientSecret'])
+
+            if isinstance(token_response, tuple):
+                status_code, error_text = token_response
+                try:
+                    error_data = json.loads(error_text)
+                    error_message = error_data.get("error_description", "Unknown error")
+                except json.JSONDecodeError:
+                    error_message = "Unknown error"
+
+                return jsonify({"responseCode": status_code, "responseText": error_message}), status_code
+
+            access_token = token_response
 
             # Add the AA in CR
             entity_type = 'AA'
@@ -70,36 +80,12 @@ def create_aa():
                 if not client_response:
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
                 else:
-                    client = NetworkManagementClient(
-                        credential=DefaultAzureCredential(),
-                        subscription_id=az.subscription_id
-                    )
-                    waf_policy = WAFPolicy(client, az.resource_group_name, az.waf_policy_name)
-                    new_custom_rules = [{
-                        "name": "myrule4",
-                        "priority": 1,
-                        "ruleType": "MatchRule",
-                        "action": "Allow",
-                        "state": "Enabled",
-                        "matchConditions": [
-                            {
-                                "matchVariables": [
-                                    {
-                                        "variableName": "RemoteAddr"
-                                    }
-                                ],
-                                "operator": "IPMatch",
-                                "negationConditon": False,
-                                "matchValues": [
-                                    "192.168.3.0/24"
-                                ],
-                                "transforms": []
-                            }
-                        ]
-                    }]
-                    waf_policy.add_custom_rules(new_custom_rules)
-
                     if insert_data(data['entityinfo']['id'], headers['clientId'], headers['userType']):
+                        try:
+                            configure_waf_policy()
+                        except Exception as e:
+                            return jsonify(
+                                {"responseCode": 500, "responseText": f"Error in configure_waf_policy: {e}"}), 500
                         return jsonify({"responseCode": 201, "responseText": client_response}), 201
                     else:
                         return jsonify({"responseCode": 500, "responseText": "Failed to create user"}), 500

@@ -36,8 +36,8 @@ class Keycloak:
             token = json.loads(response.content)["access_token"]
             return token
         else:
-            print("Failed to generate token: {}".format(response.status_code))
-            return None
+            # print("Failed to generate token: {}".format(response.status_code))
+            return response.status_code, response.text
 
     def create_client(self, access_token, entity_id, base_url):
         """
@@ -64,7 +64,7 @@ class Keycloak:
         payload['redirectUris'].append(base_url)
 
         response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
-        print("response::::", response.text)
+        print("response::::", response.status_code, response.text)
         if response.status_code == 201:
             url = f"{self.conf.get('keycloak_base_url')}/admin/realms/{self.conf.get('realm')}/clients"
             headers = {

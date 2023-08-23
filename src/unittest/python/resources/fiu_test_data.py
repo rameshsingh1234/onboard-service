@@ -1,5 +1,4 @@
 import os
-
 from src.unittest.python.utils import read_config_file
 
 conf = read_config_file.read_config(os.path.join(os.path.dirname(os.path.dirname(__file__)), "resources", "testHeaders.json"))

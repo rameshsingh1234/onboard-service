@@ -8,13 +8,16 @@ conf = read_config_file.read_config(
 
 
 def test_create_client_success():
+    """
+    Obtain the access token using the get_token method
+    validate the result using assert method
+    """
     keycloak = Keycloak(conf)
     client_id = conf.get("client_id")
     client_secret = conf.get("client_secret")
     entity_id = conf.get("entity_id")
     keycloak_base_url = conf.get("keycloak_base_url")
 
-    # Obtain the access token using the get_token method
     access_token = keycloak.get_token(client_id, client_secret)
 
     result = keycloak.create_client(access_token, entity_id, keycloak_base_url)

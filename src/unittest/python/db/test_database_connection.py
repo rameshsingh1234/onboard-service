@@ -1,27 +1,30 @@
-import os
-import pytest
-import psycopg2
-import yaml
+from sqlalchemy import create_engine
+from sqlalchemy.exc import OperationalError
+from src.main.python.api.app import app
+from src.main.python.models.db_connection import setup_db_config
 
 
-@pytest.fixture
-def db_params():
-    test_script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.abspath(os.path.join(test_script_dir, '..', '..', '..', '..'))
-    config_path = os.path.join(project_root, 'src', 'main', 'python', 'resources', 'db_config.yaml')
+def test_db_connection():
+    """
+    Call the setup_db_config method to get the database configuration
+    Construct the database URI
+    Try to establish a connection to the database
+    Assert that the connection was successful
+    return : db_uri
+    """
+    db_config = setup_db_config(app)
 
-    with open(config_path, 'r') as config_file:
-        return yaml.safe_load(config_file)
+    db_uri = f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['dbname']}"
 
-
-def test_database_connection(db_params):
     try:
-        connection = psycopg2.connect(**db_params)
+        engine = create_engine(db_uri)
+        connection = engine.connect()
         connection.close()
-        assert True, "Database connection successful."
-    except psycopg2.OperationalError as e:
-        pytest.fail(f"Database connection failed: {e}")
+        engine.dispose()
+        connection_successful = True
+    except OperationalError:
+        connection_successful = False
 
+    assert connection_successful, "Database connection could not be established"
 
-if __name__ == '__main__':
-    pytest.main([__file__])
+    return db_uri

@@ -22,19 +22,15 @@ def test_create_fiu_exist(url, client_id, client_secret, user_type, entity_type,
         "userType": user_type
     }
 
-    # First request to create the entity
     response = requests.post(api_endpoint, json=request_body, headers=headers)
 
     assert response.status_code == 201, f"Expected status code 201, but got {response.status_code},{response.text},{response.text}"
 
-    # Extract the entity ID from the request body
     entity_id = request_body.get("entityinfo", {}).get("id")
 
-    # Second request to create the entity again with the same ID
     updated_request_body = request_body.copy()
     updated_request_body["entityinfo"]["id"] = entity_id
 
     second_response = requests.post(api_endpoint, json=updated_request_body, headers=headers)
 
-    # Check the second response status code and message
     assert second_response.status_code == 409, f"Expected status code 409, but got {second_response.status_code},{response.text}"

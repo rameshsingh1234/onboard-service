@@ -1,0 +1,18 @@
+{
+	"ruleSetVersion": "3.2",
+	"ruleSetType": "OWASP",
+	"ruleGroupOverrides": [],
+	"location": "eastus",
+	"custom_rules": [{
+		"name": "myrule4",
+		"priority": 1,
+		"rule_type": "MatchRule",
+		"action": "Allow",
+		"state": "Enabled",
+		"match_variables": ["RemoteAddr"],
+		"operator": "IPMatch",
+		"negation_condition": false,
+		"match_values": ["192.168.3.0/24"],
+		"transforms": []
+	}]
+}

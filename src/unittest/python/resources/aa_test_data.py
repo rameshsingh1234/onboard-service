@@ -1,5 +1,4 @@
 import os
-
 from src.unittest.python.utils import read_config_file
 
 """ Read config file"""
@@ -69,7 +68,7 @@ aa_create_schema = [
 
         {
             "ver": "1.0",
-            "timestamp": "2021-07-30 14:21:19.0",
+            "timestamp": "2021-07-04 14:21:19.0",
             "txnid": "29ae-11e8-a8d7-0290",
             "requester": {
                 "name": "AA1test",
@@ -124,7 +123,7 @@ aa_invalid_schema = [
 
         {
             "ver": "1.0",
-            "timestamp": "2021-07-30 14:21:19.0",
+            "timestamp": "2021-08-05 14:21:19.0",
             "txnid": "29ae-11e8-a8d7-0290",
 
             "entityinfo": {
@@ -176,7 +175,7 @@ aa_exits_schema = [
 
         {
             "ver": "1.0",
-            "timestamp": "2021-07-30 14:21:19.0",
+            "timestamp": "2021-09-23 14:21:19.0",
             "txnid": "29ae-11e8-a8d7-0290",
             "requester": {
                 "name": "AA2test",

@@ -1,27 +1,21 @@
-import pytest
-import psycopg2
-from src.unittest.python.db.test_database_connection import db_params
+from src.main.python.models.database import db, create_tables
+from src.main.python.api.app import app
+from sqlalchemy import inspect
+from src.unittest.python.db.test_database_connection import test_db_connection
 
 
-def test_table_existence(db_params):
-    try:
-        connection = psycopg2.connect(**db_params)
-        cursor = connection.cursor()
+def test_user_info_table_exists():
+    """
+    Get the db_uri from the test_db_connection function
+    Call the create_tables method to create the tables (if they don't exist)
+    Check if the 'user_info' table exists
+    """
+    db_uri = test_db_connection()
 
-        # Specify the table name you want to check
-        table_name = 'user_info'
+    with app.app_context():
+        create_tables()
 
-        # Execute a query to check if the table exists
-        cursor.execute(f"SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = %s)", (table_name,))
-        exists = cursor.fetchone()[0]
-
-        cursor.close()
-        connection.close()
-
-        assert exists, f"Table '{table_name}' does not exist."
-    except psycopg2.OperationalError as e:
-        pytest.fail(f"Database connection failed: {e}")
-
-
-if __name__ == '__main__':
-    pytest.main([__file__])
+    with app.app_context():
+        engine = db.create_engine(db_uri)
+        inspector = inspect(engine)
+        assert 'user_info' in inspector.get_table_names()

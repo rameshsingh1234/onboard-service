@@ -1,5 +1,4 @@
 import os
-
 from src.unittest.python.utils import read_config_file
 
 """ Read config file"""
