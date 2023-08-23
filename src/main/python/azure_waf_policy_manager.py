@@ -1,4 +1,3 @@
-import json
 import os
 from azure.identity import DefaultAzureCredential
 from azure.mgmt.network import NetworkManagementClient
@@ -7,7 +6,6 @@ from src.unittest.python.utils import read_config_file
 
 config_path = read_config_file.read_config(
     os.path.join(os.path.dirname(os.path.dirname(__file__)), "../main/python/resources", "azure_custom_rules.json"))
-data = json.load(open(config_path))
 
 
 class RuleSet:
@@ -76,12 +74,12 @@ class WAFPolicy:
                 existing_custom_rules.extend(item.custom_rules)
         return existing_custom_rules
 
-    def add_custom_rules(self, new_custom_rules, location, managed_rule_sets):
+    def add_custom_rules(self, new_custom_rules, managed_rule_sets):
         all_custom_rules = self.get_custom_rules() + new_custom_rules
 
         properties = Properties(all_custom_rules, managed_rule_sets)
-        policy_params = PolicyParameters(data["location"], properties)
-        print(type(policy_params))
+        policy_params = PolicyParameters(config_path["location"], properties)
+        print(policy_params)
 
         response = self.client.web_application_firewall_policies.create_or_update(
             resource_group_name=self.resource_group_name,
@@ -99,7 +97,7 @@ def configure_waf_policy():
     waf_policy = WAFPolicy(client, az.resource_group_name, az.waf_policy_name)
 
     new_custom_rules = []
-    for custom_rule_data in data["custom_rules"]:
+    for custom_rule_data in config_path["custom_rules"]:
         match_variables = [MatchVariable(variable_name) for variable_name in custom_rule_data["match_variables"]]
         match_condition = MatchCondition(
             match_variables=match_variables,
@@ -118,9 +116,5 @@ def configure_waf_policy():
         )
         new_custom_rules.append(new_custom_rule)
 
-    response = waf_policy.add_custom_rules(new_custom_rules)
-    return response
-
-
-# if __name__ == "__main__":
-#     configure_waf_policy()
+    managed_rule_sets = ManagedRuleSets(rule_sets=[], exclusions=[])
+    waf_policy.add_custom_rules(new_custom_rules, managed_rule_sets)
