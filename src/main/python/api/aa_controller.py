@@ -4,7 +4,7 @@ import os
 import jsonschema
 from flask import Blueprint, request, jsonify
 from src.main.python.api.app import app
-from src.main.python.azure_waf_policy_manager import configure_waf_policy
+# from src.main.python.azure_waf_policy_manager import configure_waf_policy
 from src.main.python.schemaValidator import SchemaValidator
 from src.unittest.python.utils import read_file, read_config_file
 from src.main.python import CentralRegistry as cr
@@ -81,11 +81,11 @@ def create_aa():
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
                 else:
                     if insert_data(data['entityinfo']['id'], headers['clientId'], headers['userType']):
-                        try:
-                            configure_waf_policy()
-                        except Exception as e:
-                            return jsonify(
-                                {"responseCode": 500, "responseText": f"Error in configure_waf_policy: {e}"}), 500
+                        # try:
+                        #     configure_waf_policy()
+                        # except Exception as e:
+                        #     return jsonify(
+                        #         {"responseCode": 500, "responseText": f"Error in configure_waf_policy: {e}"}), 500
                         return jsonify({"responseCode": 201, "responseText": client_response}), 201
                     else:
                         return jsonify({"responseCode": 500, "responseText": "Failed to create user"}), 500

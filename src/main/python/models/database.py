@@ -1,7 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
-from src.main.python.api.main import app
+from src.main.python.api.app import app
+from src.main.python.models.db_connection import setup_db_config
 
+db_params = setup_db_config(app)
 db = SQLAlchemy(app)
 
 

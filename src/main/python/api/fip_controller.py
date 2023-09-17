@@ -11,7 +11,7 @@ from src.main.python import json_data_validator as jdv
 from src.main.python import Keycloak
 from flask import Blueprint
 from src.main.python.models.database import insert_data
-from src.main.python.azure_waf_policy_manager import configure_waf_policy
+# from src.main.python.azure_waf_policy_manager import configure_waf_policy
 
 fip_blueprint = Blueprint('/v1/FIP', __name__)
 
@@ -86,11 +86,11 @@ def create_fip():
                     return jsonify({"responseCode": 409, "responseText": "keycloak client creation error"}), 409
                 else:
                     if insert_data(data['entityinfo']['id'], headers['clientId'], headers['userType']):
-                        try:
-                            configure_waf_policy()
-                        except Exception as e:
-                            return jsonify(
-                                {"responseCode": 500, "responseText": f"Error in configure_waf_policy: {e}"}), 500
+                        # try:
+                        #     configure_waf_policy()
+                        # except Exception as e:
+                        #     return jsonify(
+                        #         {"responseCode": 500, "responseText": f"Error in configure_waf_policy: {e}"}), 500
                         return jsonify({"responseCode": 201, "responseText": client_response}), 201
                     else:
                         return jsonify({"responseCode": 500, "responseText": "Failed to create user"}), 500
